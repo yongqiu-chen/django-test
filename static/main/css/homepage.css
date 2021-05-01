@@ -1,0 +1,139 @@
+    body {
+        margin: 0 auto;
+    }
+    a:hover{
+        text-decoration: none;
+    }
+    a:link {
+        text-decoration: none;
+    }
+    a:active {
+        text-decoration: none;
+    }
+    a:visited {
+        text-decoration: none;
+    }
+    a {
+        color: black;
+        text-decoration: none;
+    }
+    .pg_bottom .pg_left .panel-group li{
+        height: 28px;
+        line-height: 28px;
+    }
+    .pg_bottom .pg_left .panel-group ul{
+        list-style:none;
+        text-align: left;
+        padding:0;
+        margin-bottom:0;
+    }
+    ol {
+        margin-bottom: 0;
+    }
+    .left{
+        float: left;
+    }
+    .right{
+        float: right;
+    }
+    .pg_heard {
+        height: 48px;
+        min-width: 1190px;
+        background-color: #3a8ee6;
+        line-height: 48px;
+
+    }
+    .logo{
+        font-size: 25px;
+        color: white;
+        width: 200px;
+        text-align: center;
+        border-right:  1px solid #DEEDFC;
+    }
+    .pg_heard .heard-right a{
+        display: inline-block;
+        padding: 0 20px ;
+        color: white;
+        cursor: pointer;
+    }
+    .pg_heard .heard-right a:hover{
+        background-color: #409EFF;
+    }
+    .head-portrait-div{
+        padding: 0 30px;
+        position: relative;
+        cursor: pointer;
+    }
+    .head-portrait{
+        height: 40px;
+        width: 40px;
+        border-radius: 50%;
+    }
+    .pg_heard .head-portrait-div .user-info{
+        position: absolute;
+        width: 120px;
+        top: 48px;
+        right: 0;
+        background-color: white;
+        z-index: 100;
+        display: none;
+        text-align: center;
+    }
+    .pg_heard .head-portrait-div .user-info a{
+        font-size: 16px;
+        color: black;
+        line-height: 20px;
+    }
+    .pg_heard .head-portrait-div .user-info p{
+        line-height: 20px;
+        margin-block-end: 10px;
+        margin-bottom: 10px;
+    }
+    .pg_heard .head-portrait-div:hover .user-info{
+        display: block;
+    }
+    .pg_left{
+        width: 200px;
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        top: 48px;
+        background-color: #f5f5f5;
+
+    }
+    .pg_right{
+        position: absolute;
+        right: 0;
+        left: 200px;
+        top: 48px;
+        bottom: 0;
+        background-color: white;
+        overflow: auto;
+        min-width: 990px;
+        z-index: 99;
+    }
+    .badge_my{
+       background-color: white;
+        color: black;
+        margin-left: 2px
+    }
+    .glyphicon-my{
+        margin-right: 2px;
+    }
+    .panel-my {
+        background-color: #f5f5f5;
+        margin-top:0;
+    }
+    .panel-body ul li{
+        margin: 0;
+        padding: 0 15px;
+    }
+    .panel-body-2 {
+        padding: 0
+    }
+    .left-li-color{
+        background-color: #DEEDFC;
+    }
+    .panel-body ul  a{
+        display: block;
+    }
