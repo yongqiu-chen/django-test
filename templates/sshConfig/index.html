@@ -9,41 +9,115 @@
     <script src="/static/bootstrap/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="/static/sshconfig/css/sshconfig.css">
     <script src="/static/sshconfig/js/sshconfig.js"></script>
+
+
+
 </head>
 <body>
     <button type="button" class="btn btn-primary btn-lg btn-primary-my" data-toggle="modal" data-target="#myModal">
       新增分组
     </button>
     <!-- Modal -->
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title" id="myModalLabel">新增分组</h4>
+
+    {% if  my_format.type  == 'add_user' %}
+        <div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">修改分组信息</h4>
+              </div>
+              <form method="post" action="/sshconfig/" id="add_group" >
+                  {% csrf_token %}
+                  <div class="modal-body">
+                    <div class="input-group">
+                      <span class="input-group-addon" id="basic-addon1">用户名</span>
+                      <input type="text" class="form-control" placeholder="用户名" aria-describedby="basic-addon1" name="user_name">
+                    </div>
+                    <label for="basic-url"></label>
+                    <input name="group_id" type="hidden" value={{ my_format.group_id }}>
+                    <input name="type" type="hidden" value="add_user">
+                    <div class="input-group">
+                      <span class="input-group-addon" id="basic-addon1">IP地址</span>
+                      <input type="text" class="form-control" placeholder="IP地址" aria-describedby="basic-addon1" name="ipaddr">
+                    </div>
+                    <label for="basic-url"></label>
+                    <div class="input-group">
+                      <span class="input-group-addon" id="basic-addon1">密码</span>
+                      <input type="text" class="form-control" placeholder="密码   " aria-describedby="basic-addon1" name="password">
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary" onclick="submitForm_filter_platform()">保存</button>
+                  </div>
+              </form>
+            </div>
           </div>
-          <form method="post" action="/sshconfig/" id="add_group" >
-              {% csrf_token %}
-              <div class="modal-body">
-                <div class="input-group">
-                  <span class="input-group-addon" id="basic-addon1">组名称</span>
-                  <input type="text" class="form-control" placeholder="组名称" aria-describedby="basic-addon1" name="group_name">
-                </div>
-                <label for="basic-url"></label>
-                <input name="from" type="hidden" value="/sshconfig">
-                <div class="input-group">
-                  <span class="input-group-addon" id="basic-addon1">通告邮箱</span>
-                  <input type="text" class="form-control" placeholder="通告邮箱" aria-describedby="basic-addon1" name="email_addr">
-                </div>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                <button type="button" class="btn btn-primary" onclick="submitForm_filter_platform()">保存</button>
-              </div>
-          </form>
         </div>
-      </div>
-    </div>
+    {% elif my_format.type  == 'alter_group' %}
+        <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">修改分组信息</h4>
+              </div>
+              <form method="post" action="/sshconfig/" id="add_group" >
+                  {% csrf_token %}
+                  <div class="modal-body">
+                    <div class="input-group">
+                      <span class="input-group-addon" id="basic-addon1">组名称</span>
+                      <input type="text" class="form-control" value={{ my_format.group_name }} aria-describedby="basic-addon1" name="group_name">
+                    </div>
+                    <label for="basic-url"></label>
+                    <input name="id" type="hidden" value={{ my_format.id }}>
+                    <input name="type" type="hidden" value="alter_group">
+                    <div class="input-group">
+                      <span class="input-group-addon" id="basic-addon1">通告邮箱</span>
+                      <input type="text" class="form-control" value={{ my_format.email_name }} aria-describedby="basic-addon1" name="email_name">
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary" onclick="submitForm_filter_platform()">保存</button>
+                  </div>
+              </form>
+            </div>
+          </div>
+        </div>
+    {% else %}
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">新增分组</h4>
+              </div>
+              <form method="post" action="/sshconfig/" id="add_group" >
+                  {% csrf_token %}
+                  <div class="modal-body">
+                    <div class="input-group">
+                      <span class="input-group-addon" id="basic-addon1">组名称</span>
+                      <input type="text" class="form-control" placeholder="组名称" aria-describedby="basic-addon1" name="group_name">
+                    </div>
+                    <label for="basic-url"></label>
+                    <input name="from" type="hidden" value="/sshconfig">
+                    <div class="input-group">
+                      <span class="input-group-addon" id="basic-addon1">通告邮箱</span>
+                      <input type="text" class="form-control" placeholder="通告邮箱" aria-describedby="basic-addon1" name="email_addr">
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary" onclick="submitForm_filter_platform()">保存</button>
+                  </div>
+              </form>
+            </div>
+          </div>
+        </div>
+    {% endif %}
+
     <button type="button" class="btn btn-primary btn-lg btn-primary-my2">
       批量删除
     </button>
@@ -67,12 +141,12 @@
                             <a data-toggle="collapse" data-parent="#accordion"
                                href="#collapse{{ data.pk }}">
                                 <div>
-                                    <span class="caret"></span>
                                     <div class="line_style">{{ data.fields.group_name }}</div>
                                     <div class="line_style">{{ data.fields.email_name }}</div>
-                                    <div class="btn-group" role="group"  onclick="stopBubble()">
-                                        <a href="https://www.baidu.com"><button>新增</button></a>
-                                        <button>修改组信息</button>
+                                    <div onclick="stopBubble()">
+                                        <a href="/sshconfig?group_id={{ data.pk }}&type=add_user"><button>新增成员</button></a>
+                                        <a href="/sshconfig?id={{ data.pk }}&group_name={{ data.fields.group_name }}&email_name={{ data.fields.email_name }}&type=alter_group"><button>修改</button></a>
+                                        <a href="/sshconfig?id={{ data.pk }}&type=delete_group"><button>删除</button></a>
                                     </div>
                                 </div>
                             </a>
@@ -81,8 +155,20 @@
                     <div id="collapse{{ data.pk }}" class="panel-collapse collapse">
                         <div class="panel-body panel-body-2">
                             <ul id="select1">
-                                <li><a href="/register/" target="iframe_a">当前分组情况</a></li>
-                                <li><a href="/login/">历史构建</a></li>
+                                <li style="display: block;height: 40px;line-height: 40px">
+                                    <div class="line_style-li" target="iframe_a">用户名</div>
+                                    <div class="line_style-li" target="iframe_a">IP地址</div>
+                                </li>
+                                {%  for userdata in userdatas %}
+                                    {% if data.pk == userdata.fields.group_id %}
+                                        <li style="display: block;height: 40px;border-top:  1px solid #DEEDFC;padding-top: 10px" >
+                                            <div class="line_style-li"  target="iframe_a">{{ userdata.fields.username }}</div>
+                                            <div class="line_style-li"  target="iframe_a">{{ userdata.fields.ipaddress  }}</div>
+                                            <a href="/sshconfig?id={{ data.pk }}&group_name={{ data.fields.group_name.ipaddress }}&email_name={{ data.fields.email_name }}&type=alter_group"><button>修改</button></a>
+                                            <a href="/sshconfig?id={{ data.pk }}&type=delete_group"><button>删除</button></a>
+                                        </li>
+                                    {% endif %}
+                                {% endfor %}
                             </ul>
                         </div>
                     </div>
@@ -90,5 +176,13 @@
         {% endfor %}
 
     </div>
+    <script>
+        $('#myModal2').modal({
+          keyboard: false
+        })
+        $('#myModal3').modal({
+          keyboard: false
+        })
+	</script>
 </body>
 </html>

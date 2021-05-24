@@ -11,4 +11,4 @@ class ssh_user(models.Model):
     username = models.CharField(max_length=20)
     userpaaword = models.CharField(max_length=100)
     ipaddress = models.CharField(max_length=20)
-    gourp_id = models.SmallIntegerField(default=0)
+    group_id = models.SmallIntegerField(default=0)

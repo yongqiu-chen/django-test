@@ -46,7 +46,16 @@
         line-height: 40px;
     }
     .line_style{
-        width: 42%;
+        width: 35%;
         float: left;
         padding-left: 50px;
+        color: black;
+    }
+    .line_style-li{
+        width: 35%;
+        float: left;
+        padding-left: 50px;
+    }
+    .panel-body-2 {
+        padding: 0
     }
