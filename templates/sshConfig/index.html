@@ -7,40 +7,88 @@
     <link rel="stylesheet" href="/static/bootstrap/css/bootstrap-theme.min.css">
     <script src="/static/bootstrap/js/jquery.min.js"></script>
     <script src="/static/bootstrap/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="/static/sshconfig/css/sshconfig.css">
+    <script src="/static/sshconfig/js/sshconfig.js"></script>
 </head>
 <body>
-    <div class="bs-example" data-example-id="simple-table">
-        <table class="table">
-          <caption>Optional table caption.</caption>
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>First Name</th>
-              <th>Last Name</th>
-              <th>Username</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <th scope="row">1</th>
-              <td>Mark</td>
-              <td>Otto</td>
-              <td>@mdo</td>
-            </tr>
-            <tr>
-              <th scope="row">2</th>
-              <td>Jacob</td>
-              <td>Thornton</td>
-              <td>@fat</td>
-            </tr>
-            <tr>
-              <th scope="row">3</th>
-              <td>Larry</td>
-              <td>the Bird</td>
-              <td>@twitter</td>
-            </tr>
-          </tbody>
-        </table>
+    <button type="button" class="btn btn-primary btn-lg btn-primary-my" data-toggle="modal" data-target="#myModal">
+      新增分组
+    </button>
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">新增分组</h4>
+          </div>
+          <form method="post" action="/sshconfig/" id="add_group" >
+              {% csrf_token %}
+              <div class="modal-body">
+                <div class="input-group">
+                  <span class="input-group-addon" id="basic-addon1">组名称</span>
+                  <input type="text" class="form-control" placeholder="组名称" aria-describedby="basic-addon1" name="group_name">
+                </div>
+                <label for="basic-url"></label>
+                <input name="from" type="hidden" value="/sshconfig">
+                <div class="input-group">
+                  <span class="input-group-addon" id="basic-addon1">通告邮箱</span>
+                  <input type="text" class="form-control" placeholder="通告邮箱" aria-describedby="basic-addon1" name="email_addr">
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" onclick="submitForm_filter_platform()">保存</button>
+              </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <button type="button" class="btn btn-primary btn-lg btn-primary-my2">
+      批量删除
+    </button>
+    <div class="panel-group" id="accordion">
+                <div class="panel panel-default" style="background-color: #ffffff;margin-top: 0">
+                    <div class="panel-heading panel-heading-my" >
+                        <h4 class="panel-title" >
+                            <a data-toggle="collapse" data-parent="#accordion">
+                                <div>
+                                    <div class="line_style">用户名</div>
+                                    <div class="line_style">组通知邮箱</div>
+                                </div>
+                            </a>
+                        </h4>
+                    </div>
+                </div>
+        {% for data in datas %}
+                <div class="panel panel-default" style="background-color: #ffffff;margin-top: 0">
+                    <div class="panel-heading panel-heading-my" >
+                        <h4 class="panel-title" >
+                            <a data-toggle="collapse" data-parent="#accordion"
+                               href="#collapse{{ data.pk }}">
+                                <div>
+                                    <span class="caret"></span>
+                                    <div class="line_style">{{ data.fields.group_name }}</div>
+                                    <div class="line_style">{{ data.fields.email_name }}</div>
+                                    <div class="btn-group" role="group"  onclick="stopBubble()">
+                                        <a href="https://www.baidu.com"><button>新增</button></a>
+                                        <button>修改组信息</button>
+                                    </div>
+                                </div>
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapse{{ data.pk }}" class="panel-collapse collapse">
+                        <div class="panel-body panel-body-2">
+                            <ul id="select1">
+                                <li><a href="/register/" target="iframe_a">当前分组情况</a></li>
+                                <li><a href="/login/">历史构建</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+        {% endfor %}
+
     </div>
 </body>
 </html>
