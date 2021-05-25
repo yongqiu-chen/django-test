@@ -20,12 +20,12 @@
     <!-- Modal -->
 
     {% if  my_format.type  == 'add_user' %}
-        <div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal fade" id="myModal4" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel">修改分组信息</h4>
+                <h4 class="modal-title" id="myModalLabel">增加组用户</h4>
               </div>
               <form method="post" action="/sshconfig/" id="add_group" >
                   {% csrf_token %}
@@ -40,6 +40,43 @@
                     <div class="input-group">
                       <span class="input-group-addon" id="basic-addon1">IP地址</span>
                       <input type="text" class="form-control" placeholder="IP地址" aria-describedby="basic-addon1" name="ipaddr">
+                    </div>
+                    <label for="basic-url"></label>
+                    <div class="input-group">
+                      <span class="input-group-addon" id="basic-addon1">密码</span>
+                      <input type="text" class="form-control" placeholder="密码   " aria-describedby="basic-addon1" name="password">
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary" onclick="submitForm_filter_platform()">保存</button>
+                  </div>
+              </form>
+            </div>
+          </div>
+        </div>
+    {% elif my_format.type  == 'alter_user' %}
+        test
+        <div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">修改组用户</h4>
+              </div>
+              <form method="post" action="/sshconfig/" id="add_group" >
+                  {% csrf_token %}
+                  <div class="modal-body">
+                    <div class="input-group">
+                      <span class="input-group-addon" id="basic-addon1">用户名</span>
+                      <input type="text" class="form-control" value={{ my_format.user_name }} aria-describedby="basic-addon1" name="user_name">
+                    </div>
+                    <label for="basic-url"></label>
+                    <input name="user_id" type="hidden" value={{ my_format.user_id }}>
+                    <input name="type" type="hidden" value="alter_user">
+                    <div class="input-group">
+                      <span class="input-group-addon" id="basic-addon1">IP地址</span>
+                      <input type="text" class="form-control" value={{ my_format.user_ipaddr }} aria-describedby="basic-addon1" name="ipaddr">
                     </div>
                     <label for="basic-url"></label>
                     <div class="input-group">
@@ -164,8 +201,8 @@
                                         <li style="display: block;height: 40px;border-top:  1px solid #DEEDFC;padding-top: 10px" >
                                             <div class="line_style-li"  target="iframe_a">{{ userdata.fields.username }}</div>
                                             <div class="line_style-li"  target="iframe_a">{{ userdata.fields.ipaddress  }}</div>
-                                            <a href="/sshconfig?id={{ data.pk }}&group_name={{ data.fields.group_name.ipaddress }}&email_name={{ data.fields.email_name }}&type=alter_group"><button>修改</button></a>
-                                            <a href="/sshconfig?id={{ data.pk }}&type=delete_group"><button>删除</button></a>
+                                            <a href="/sshconfig?user_id={{ userdata.pk }}&user_name={{ userdata.fields.username }}&user_ipaddr={{ userdata.fields.ipaddress }}&type=alter_user"><button>修改</button></a>
+                                            <a href="/sshconfig?user_id={{ userdata.pk }}&type=delete_user"><button>删除</button></a>
                                         </li>
                                     {% endif %}
                                 {% endfor %}
@@ -181,6 +218,9 @@
           keyboard: false
         })
         $('#myModal3').modal({
+          keyboard: false
+        })
+        $('#myModal4').modal({
           keyboard: false
         })
 	</script>

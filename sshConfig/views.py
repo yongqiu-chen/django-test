@@ -14,6 +14,11 @@ def index(request):
             store = ssh_gourp.objects.get(id=request.POST.get('id'))
             store.group_name = request.POST.get('group_name')
             store.email_name = request.POST.get('email_name')
+        elif request.POST.get('type') == 'alter_user':
+            store = ssh_user.objects.get(id=request.POST.get('user_id'))
+            store.username = request.POST.get('user_name')
+            store.ipaddress = request.POST.get('ipaddr')
+            store.userpaaword = request.POST.get('password')
         elif request.POST.get('type') == 'add_user':
             username = request.POST.get('user_name')
             group_id = request.POST.get('group_id')
@@ -28,12 +33,21 @@ def index(request):
     if request.GET.get('type') == 'delete_group':
         store = ssh_gourp.objects.get(id=request.GET.get('id'))
         store.delete()
+        store_user = ssh_user.objects.get(group_id=request.GET.get('id'))
+        store_user.delete()
     elif request.GET.get('type') == 'add_user':
         my_format.update({'type': 'add_user'})
         my_format.update({'group_id': request.GET.get('group_id')})
     elif request.GET.get('type') == 'alter_group':
         my_format.update({'type': 'alter_group'})
         my_format.update({'id': request.GET.get('id'), 'group_name': request.GET.get('group_name'), 'email_name': request.GET.get('email_name')})
+    elif request.GET.get('type') == 'delete_user':
+        store = ssh_user.objects.get(id=request.GET.get('user_id'))
+        store.delete()
+    elif request.GET.get('type') == 'alter_user':
+        my_format.update({'type': 'alter_user'})
+        my_format.update({'user_id': request.GET.get('user_id'), 'user_name': request.GET.get('user_name'),
+                          'user_ipaddr': request.GET.get('user_ipaddr')})
     else:
         pass
     getallgourp = serializers.serialize("python", ssh_gourp.objects.all())
