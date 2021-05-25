@@ -33,8 +33,11 @@ def index(request):
     if request.GET.get('type') == 'delete_group':
         store = ssh_gourp.objects.get(id=request.GET.get('id'))
         store.delete()
-        store_user = ssh_user.objects.get(group_id=request.GET.get('id'))
-        store_user.delete()
+        try:
+            store_user = ssh_user.objects.get(group_id=request.GET.get('id'))
+            store_user.delete()
+        except Exception:
+            pass
     elif request.GET.get('type') == 'add_user':
         my_format.update({'type': 'add_user'})
         my_format.update({'group_id': request.GET.get('group_id')})
